@@ -1,48 +1,31 @@
 #include <stdio.h>
 
-int main(void){
-
-    int i, j, k, term;
-
-    int a[3][3], b[3][3], c[3][3];
-
-    printf("1つ目の行列を入力してください\n");
-    for(i=0; i<3; i++){
-        for(j=0; j<3; j++){
-        printf("A[%d][%d]= ", i+1, j+1);
-        scanf("%d", &a[i][j]);
-        }
-    }
-
-    printf("2つ目の行列を入力してください\n");
-    for(i=0; i<3; i++){
-        for(j=0; j<3; j++){
-            printf("B[%d][%d]= ", i+1, j+1);
-            scanf("%d", &b[i][j]);
-        }
-    }
-
-    for(i=0; i<3; i++){
-        for(j=0; j<3; j++){
-            c[i][j] = a[i][j] * b[i][j];
-
-            for (i=0; i<3; i++){
-                for(j=0; j<3; j++){
-                    term = 0;
-                    for(k=0; k<3; k++)
-                        term = term + a[i][k]*b[k][j];
-                    c[i][j] = term;
-                }
-            }
-        }
-    }
-    printf("行列　C=A×B\n");
-    for(i=0; i<3; i++){
-        for(j=0; j<3; j++){
-            printf("C[%d][%d] = %d\n", i+1, j+1, c[i][j]);
-        }
-    }
-
-    return 0;
+void mul(const int A[3][3], const int B[3][3], int C[3][3])
+{
+    int i, j, k;
     
+    for (i = 0; i < 3; i++)
+        for (j = 0; j < 3; j++) {
+            C[i][j] = 0;
+            for (k = 0; k < 3; k++)
+                C[i][j] += A[i][k] * B[k][j];
+        }
+}
+
+int main(void)
+{
+    int i, j;
+    int x[3][3] = { {1, 2, 3}, {4, 5, 6}, {7, 8, 9} };
+    int y[3][3] = { {1, 4, 7}, {2, 5, 8}, {3, 6, 9} };
+    int z[3][3];
+    
+    mul(x, y, z);
+    
+    for (i = 0; i < 3; i++) {
+        for (j = 0; j < 3; j++)
+            printf("%3d", z[i][j]);
+        putchar('\n');
+    }
+    
+    return (0);
 }
